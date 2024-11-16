@@ -4,7 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="61711db8-a3fe-407a-a53d-7d0e11682399" name="Changes" comment="" />
+    <list default="true" id="61711db8-a3fe-407a-a53d-7d0e11682399" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/org/example/envmasker/listener/EnvEditorListener.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/org/example/envmasker/listener/EnvEditorListener.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/META-INF/plugin.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/META-INF/plugin.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -50,6 +55,25 @@
       </state>
     </system>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "mucahitkayadan"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/mucahitkayadan/EnvMasker.git",
+    "accountId": "6aeb3d63-eed6-425c-a4d5-c5b14eee2dc1"
+  }
+}]]></component>
+  <component name="KubernetesApiPersistence"><![CDATA[{}]]></component>
+  <component name="KubernetesApiProvider"><![CDATA[{
+  "isMigrated": true
+}]]></component>
   <component name="LogFilters">
     <option name="FILTER_ERRORS" value="false" />
     <option name="FILTER_WARNINGS" value="false" />
@@ -70,6 +94,7 @@
     "Gradle.EnvMasker [setupDependencies].executor": "Run",
     "Gradle.Run Plugin.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "master",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "D:/Courses/MIU/ASD/EnvMasker/settings.gradle.kts",
     "node.js.detected.package.eslint": "true",
@@ -110,7 +135,7 @@
       <option name="presentableId" value="Default" />
       <updated>1731707499003</updated>
       <workItem from="1731707500505" duration="7369000" />
-      <workItem from="1731775205118" duration="1701000" />
+      <workItem from="1731775205118" duration="6928000" />
     </task>
     <servers />
   </component>

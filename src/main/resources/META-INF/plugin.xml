@@ -1,21 +1,29 @@
 <!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
 <idea-plugin>
     <!-- Unique identifier of the plugin. It should be FQN. It cannot be changed between the plugin versions. -->
-    <id>org.example.envmasker</id>
+    <id>com.github.mucahitkayadan.envmasker</id>
 
     <!-- Public plugin name should be written in Title Case.
          Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-name -->
     <name>Env File Masker</name>
 
     <!-- A displayed Vendor name or Organization ID displayed on the Plugins Page. -->
-    <vendor>Your Name</vendor>
+    <vendor>Mucahit Kayadan</vendor>
 
     <!-- Description of the plugin displayed on the Plugin Page and IDE Plugin Manager.
          Simple HTML elements (text formatting, paragraphs, and lists) can be added inside of <![CDATA[ ]]> tag.
          Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-description -->
     <description><![CDATA[
-    Masks sensitive values in .env files
-  ]]></description>
+        A security-focused plugin that automatically masks sensitive values in .env files.
+        
+        Features:
+        - Automatically detects and masks values in .env files
+        - Click to reveal/hide sensitive information
+        - Works with all IntelliJ-based IDEs
+        - Helps prevent accidental exposure of sensitive data
+        
+        Perfect for teams working with environment variables containing sensitive information like API keys, passwords, and tokens.
+    ]]></description>
 
     <!-- Product and plugin compatibility requirements.
          Read more: https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html -->

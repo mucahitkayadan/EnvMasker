@@ -2,19 +2,22 @@ FROM gradle:8.5-jdk17
 
 WORKDIR /app
 
-# Copy only the build files first to leverage Docker caching
-COPY build.gradle.kts settings.gradle.kts ./
-COPY gradle gradle
-COPY gradlew gradlew
+# Install dos2unix
+RUN apt-get update && apt-get install -y dos2unix
 
-# Download dependencies
-RUN ./gradlew --no-daemon dependencies
+# Copy the entire project
+COPY . .
 
-# Now copy the source code
-COPY src src
+# Fix line endings and permissions
+RUN chmod +x ./gradlew && \
+    dos2unix ./gradlew && \
+    dos2unix ./gradle/wrapper/gradle-wrapper.properties
 
-# Build the plugin
-RUN ./gradlew --no-daemon buildPlugin
+# Show the content of the problematic file for debugging
+RUN cat src/main/kotlin/org/example/envmasker/listener/EnvEditorListener.kt
+
+# Build with more verbose output
+RUN ./gradlew buildPlugin --stacktrace --info
 
 # The plugin will be in /app/build/distributions/EnvMasker-1.0-SNAPSHOT.zip
 
