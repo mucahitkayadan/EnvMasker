@@ -68,13 +68,34 @@ public class EnvEditorListener implements EditorFactoryListener {
         ApplicationManager.getApplication().invokeLater(() -> {
             ApplicationManager.getApplication().runWriteAction(() -> {
                 FoldingModelEx foldingModel = (FoldingModelEx) editor.getFoldingModel();
-                foldingModel.clearFoldRegions();
-                applyFolding(editor);
-                
-                // Ensure all regions are collapsed
                 foldingModel.runBatchFoldingOperation(() -> {
-                    for (FoldRegion region : foldingModel.getAllFoldRegions()) {
-                        region.setExpanded(false);
+                    // Clear existing regions within the batch operation
+                    foldingModel.clearFoldRegions();
+                    // Apply new folding within the same batch operation
+                    String text = editor.getDocument().getText();
+                    String[] lines = text.split("\n");
+                    int offset = 0;
+
+                    for (String line : lines) {
+                        int equalIndex = line.indexOf('=');
+                        if (equalIndex != -1) {
+                            int valueStart = offset + equalIndex + 1;
+                            int valueEnd = offset + line.length();
+                            if (valueEnd > valueStart) {
+                                String value = line.substring(equalIndex + 1).trim();
+                                if (!value.isEmpty()) {
+                                    FoldRegion region = foldingModel.addFoldRegion(
+                                        valueStart,
+                                        valueEnd,
+                                        "********"
+                                    );
+                                    if (region != null) {
+                                        region.setExpanded(false);
+                                    }
+                                }
+                            }
+                        }
+                        offset += line.length() + 1; // +1 for newline
                     }
                 });
             });
@@ -106,37 +127,6 @@ public class EnvEditorListener implements EditorFactoryListener {
                         );
                     }
                 });
-            }
-        });
-    }
-
-    private void applyFolding(Editor editor) {
-        FoldingModelEx foldingModel = (FoldingModelEx) editor.getFoldingModel();
-        foldingModel.runBatchFoldingOperation(() -> {
-            String text = editor.getDocument().getText();
-            String[] lines = text.split("\n");
-            int offset = 0;
-
-            for (String line : lines) {
-                int equalIndex = line.indexOf('=');
-                if (equalIndex != -1) {
-                    int valueStart = offset + equalIndex + 1;
-                    int valueEnd = offset + line.length();
-                    if (valueEnd > valueStart) {
-                        String value = line.substring(equalIndex + 1).trim();
-                        if (!value.isEmpty()) {
-                            FoldRegion region = foldingModel.addFoldRegion(
-                                valueStart,
-                                valueEnd,
-                                "********"
-                            );
-                            if (region != null) {
-                                region.setExpanded(false);
-                            }
-                        }
-                    }
-                }
-                offset += line.length() + 1; // +1 for newline
             }
         });
     }

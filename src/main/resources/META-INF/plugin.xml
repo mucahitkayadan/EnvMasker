@@ -41,4 +41,40 @@
         <editorFactoryListener 
             implementation="com.github.mucahitkayadan.envmasker.listener.EnvEditorListener"/>
     </extensions>
+
+    <change-notes><![CDATA[
+        <h3>1.0.2</h3>
+        <ul>
+            <li><b>Fixed:</b>
+                <ul>
+                    <li>Fixed issue with first line being unmasked on file open</li>
+                    <li>Fixed state persistence when switching between files</li>
+                    <li>Improved masking behavior when reopening files</li>
+                </ul>
+            </li>
+            <li><b>Changed:</b>
+                <ul>
+                    <li>Updated to support IntelliJ IDEA 2024.3</li>
+                    <li>Improved file type detection for .env files</li>
+                    <li>Enhanced click-to-toggle functionality</li>
+                </ul>
+            </li>
+        </ul>
+
+        <h3>1.0.1</h3>
+        <ul>
+            <li><b>Added:</b>
+                <ul>
+                    <li>Initial release with basic masking functionality</li>
+                    <li>Click-to-toggle feature for masked values</li>
+                    <li>Support for .env file type</li>
+                </ul>
+            </li>
+            <li><b>Fixed:</b>
+                <ul>
+                    <li>Basic folding implementation for environment variables</li>
+                </ul>
+            </li>
+        </ul>
+    ]]></change-notes>
 </idea-plugin>
