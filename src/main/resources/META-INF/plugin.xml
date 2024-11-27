@@ -8,7 +8,7 @@
     <name>Env File Masker</name>
 
     <!-- A displayed Vendor name or Organization ID displayed on the Plugins Page. -->
-    <vendor>Mucahit Kayadan</vendor>
+    <vendor>Muja Kayadan</vendor>
 
     <!-- Description of the plugin displayed on the Plugin Page and IDE Plugin Manager.
          Simple HTML elements (text formatting, paragraphs, and lists) can be added inside of <![CDATA[ ]]> tag.
@@ -34,11 +34,11 @@
     <extensions defaultExtensionNs="com.intellij">
         <fileType
             name="Env file"
-            implementationClass="org.example.envmasker.file.EnvFileType"
+            implementationClass="com.github.mucahitkayadan.envmasker.file.EnvFileType"
             fieldName="INSTANCE"
             extensions="env"/>
             
         <editorFactoryListener 
-            implementation="org.example.envmasker.listener.EnvEditorListener"/>
+            implementation="com.github.mucahitkayadan.envmasker.listener.EnvEditorListener"/>
     </extensions>
 </idea-plugin>

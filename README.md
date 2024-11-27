@@ -4,8 +4,9 @@
 
 
 ![Build Status](https://img.shields.io/badge/build-passing-brightgreen)
-![Version](https://img.shields.io/badge/version-1.0.0-blue)
+![Version](https://img.shields.io/badge/version-1.0.2-blue)
 ![License](https://img.shields.io/badge/license-MIT-green)
+[![JetBrains Plugins](https://img.shields.io/jetbrains/plugin/d/25857-env-file-masker.svg)](https://plugins.jetbrains.com/plugin/25857-env-file-masker)
 
 
 A security-focused IntelliJ plugin that automatically masks sensitive values in `.env` files to prevent accidental exposure of sensitive data.
@@ -41,4 +42,8 @@ A security-focused IntelliJ plugin that automatically masks sensitive values in 
 3. Click on a masked value to reveal it
 4. Click anywhere else to re-mask the value
 
-Example `.env` file:
+## Changelog
+
+See [CHANGELOG.md](CHANGELOG.md) for a list of changes and version history.
+
+
