@@ -1,0 +1,10 @@
+<svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- Background circle with 2px padding -->
+    <circle cx="20" cy="20" r="18" fill="#3592C4"/>
+    
+    <!-- Env file text -->
+    <text x="20" y="17" font-family="Arial, sans-serif" font-size="10" fill="#FFFFFF" text-anchor="middle">.env</text>
+    
+    <!-- Mask symbol (asterisks) -->
+    <text x="20" y="27" font-family="Arial, sans-serif" font-size="12" fill="#FFFFFF" text-anchor="middle">***</text>
+</svg>
