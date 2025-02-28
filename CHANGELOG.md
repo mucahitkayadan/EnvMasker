@@ -2,6 +2,13 @@
 
 All notable changes to the Env File Masker plugin will be documented in this file.
 
+## [1.0.3] - 2025-02-27
+### Changed
+- Masks real-time changes to .env files
+
+### Notes
+- Tested and verified working on Intellij IDEA Community 2024.2.4
+
 ## [1.0.2] - 2024-11-27
 ### Fixed
 - Fixed issue with first line being unmasked on file open
