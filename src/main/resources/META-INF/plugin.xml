@@ -43,6 +43,15 @@
     </extensions>
 
     <change-notes><![CDATA[
+        <h3>1.0.3</h3>
+        <ul>
+            <li><b>Changed:</b>
+                <ul>
+                    <li>Masks real-time changes to .env files</li>
+                </ul>
+            </li>
+        </ul>
+
         <h3>1.0.2</h3>
         <ul>
             <li><b>Fixed:</b>

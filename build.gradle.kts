@@ -4,7 +4,7 @@ plugins {
 }
 
 group = "com.github.mucahitkayadan"
-version = "1.0.2"
+version = "1.0.3"
 
 repositories {
     mavenCentral()
@@ -29,7 +29,7 @@ tasks {
 
 tasks.jar {
     archiveBaseName.set("EnvMasker")
-    archiveVersion.set("1.0.2")
+    archiveVersion.set("1.0.3")
     manifest {
         attributes["Main-Class"] = "com.github.mucahitkayadan.envmasker.EnvMasker"
     }
