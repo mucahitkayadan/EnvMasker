@@ -4,7 +4,7 @@
 
 
 ![Build Status](https://img.shields.io/badge/build-passing-brightgreen)
-![Version](https://img.shields.io/badge/version-1.0.2-blue)
+![Version](https://img.shields.io/badge/version-1.0.3-blue)
 ![License](https://img.shields.io/badge/license-MIT-green)
 [![JetBrains Plugins](https://img.shields.io/jetbrains/plugin/d/25857-env-file-masker.svg)](https://plugins.jetbrains.com/plugin/25857-env-file-masker)
 
