@@ -1,18 +1,62 @@
 plugins {
     id("java")
-    id("org.jetbrains.intellij") version "1.17.4"
+    id("org.jetbrains.intellij.platform") version "2.5.0"
 }
 
 group = "com.github.mucahitkayadan"
-version = "1.0.3"
+version = "1.0.4"
 
 repositories {
     mavenCentral()
+    intellijPlatform {
+        defaultRepositories()
+    }
 }
 
-intellij {
-    version.set("2023.2.6")
-    type.set("IC")
+dependencies {
+    intellijPlatform {
+        // Set the IntelliJ Platform version
+        intellijIdeaCommunity("2023.2.6")
+    }
+}
+
+intellijPlatform {
+    // Plugin configuration
+    pluginConfiguration {
+        id.set("com.github.mucahitkayadan.envmasker")
+        name.set("Env File Masker")
+        version.set(project.version.toString())
+        
+        // Set compatibility range
+        ideaVersion {
+            sinceBuild.set("232")
+            untilBuild.set(provider { null })  
+        }
+        
+        // Plugin description and change notes
+        description.set("""
+            A security-focused plugin that automatically masks sensitive values in .env files.
+            
+            Features:
+            - Automatically detects and masks values in .env files
+            - Click to reveal/hide sensitive information
+            - Works with all IntelliJ-based IDEs
+            - Helps prevent accidental exposure of sensitive data
+            
+            Perfect for teams working with environment variables containing sensitive information like API keys, passwords, and tokens.
+        """.trimIndent())
+        
+        changeNotes.set("""
+            <h3>1.0.4</h3>
+            <ul>
+                <li><b>Changed:</b>
+                    <ul>
+                        <li>Extended compatibility to support IntelliJ 2024.1 (build 251) and future versions</li>
+                    </ul>
+                </li>
+            </ul>
+        """.trimIndent())
+    }
 }
 
 tasks {
@@ -20,17 +64,8 @@ tasks {
         sourceCompatibility = "17"
         targetCompatibility = "17"
     }
-
-    patchPluginXml {
-        sinceBuild.set("232")
-        untilBuild.set("243.*")
-    }
 }
 
-tasks.jar {
-    archiveBaseName.set("EnvMasker")
-    archiveVersion.set("1.0.3")
-    manifest {
-        attributes["Main-Class"] = "com.github.mucahitkayadan.envmasker.EnvMasker"
-    }
+tasks.register("cleanBuildPlugin") {
+    dependsOn("clean", "buildPlugin")
 }

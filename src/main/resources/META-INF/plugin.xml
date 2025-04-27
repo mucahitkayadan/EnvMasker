@@ -43,6 +43,17 @@
     </extensions>
 
     <change-notes><![CDATA[
+        <h3>1.0.4</h3>
+        <ul>
+            <li><b>Changed:</b>
+                <ul>
+                    <li>Extended compatibility to support IntelliJ 2025.1 (build 251) and future versions</li>
+                    <li>Migrated to IntelliJ Platform Gradle Plugin 2.5.0</li>
+                    <li>Enhanced build system for better compatibility</li>
+                </ul>
+            </li>
+        </ul>
+
         <h3>1.0.3</h3>
         <ul>
             <li><b>Changed:</b>
