@@ -51,7 +51,9 @@ intellijPlatform {
             <ul>
                 <li><b>Changed:</b>
                     <ul>
-                        <li>Extended compatibility to support IntelliJ 2024.1 (build 251) and future versions</li>
+                        <li>Extended compatibility to support IntelliJ 2025.1 (build 251) and future versions</li>
+                        <li>Migrated to IntelliJ Platform Gradle Plugin 2.5.0</li>
+                        <li>Enhanced build system for better compatibility</li>
                     </ul>
                 </li>
             </ul>
@@ -63,6 +65,17 @@ tasks {
     withType<JavaCompile> {
         sourceCompatibility = "17"
         targetCompatibility = "17"
+    }
+    
+    jar {
+        archiveBaseName.set("EnvMasker")
+        manifest {
+            attributes(
+                "Implementation-Title" to "Env File Masker",
+                "Implementation-Version" to project.version,
+                "Main-Class" to "com.github.mucahitkayadan.envmasker.EnvMasker"
+            )
+        }
     }
 }
 

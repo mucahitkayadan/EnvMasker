@@ -9,6 +9,11 @@ build/
 .idea/jarRepositories.xml
 .idea/compiler.xml
 .idea/libraries/
+.idea/workspace.xml
+.idea/tasks.xml
+.idea/dictionaries
+.idea/caches
+.idea/shelf
 *.iws
 *.iml
 *.ipr
@@ -20,6 +25,13 @@ out/
 .idea/
 .vscode
 
+### Gradle ###
+.gradle/
+**/build/
+gradle-app.setting
+
+### JetBrains Platform ###
+.kotlin/
 
 ### Eclipse ###
 .apt_generated
@@ -45,3 +57,14 @@ bin/
 
 ### Mac OS ###
 .DS_Store
+
+### Windows ###
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+### Linux ###
+*~
+.fuse_hidden*
+.directory
+.Trash-*

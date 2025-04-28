@@ -2,6 +2,17 @@
 
 All notable changes to the Env File Masker plugin will be documented in this file.
 
+## [1.0.4] - 2025-05-19
+### Changed
+- Extended compatibility to support IntelliJ 2025.1 (build 251) and future versions
+- Migrated to IntelliJ Platform Gradle Plugin 2.5.0
+- Enhanced build system for better compatibility
+- Removed upper IDE version limit for unlimited compatibility
+
+### Notes
+- Tested and verified working on WebStorm 2025.1
+- Compatible with all future IDE versions without requiring updates
+
 ## [1.0.3] - 2025-02-27
 ### Changed
 - Masks real-time changes to .env files
