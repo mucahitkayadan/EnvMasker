@@ -2,7 +2,7 @@
 
 All notable changes to the Env File Masker plugin will be documented in this file.
 
-## [1.0.4] - 2025-05-19
+## [1.0.4] - 2025-04-27
 ### Changed
 - Extended compatibility to support IntelliJ 2025.1 (build 251) and future versions
 - Migrated to IntelliJ Platform Gradle Plugin 2.5.0
