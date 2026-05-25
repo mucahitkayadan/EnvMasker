@@ -2,6 +2,12 @@
 
 All notable changes to the Env File Masker plugin will be documented in this file.
 
+## [1.0.5] - 2025-05-24
+### Added
+- Setting under **Settings → Tools → Env File Masker** to control masking of commented-out assignments (e.g. `# API_KEY=secret`)
+- Inline comment handling so `KEY=value # note` masks only the value portion
+- Removed duplicate `.env` file type registration to avoid conflicts with JetBrains .env files plugin
+
 ## [1.0.4] - 2025-04-27
 ### Changed
 - Extended compatibility to support IntelliJ 2025.1 (build 251) and future versions

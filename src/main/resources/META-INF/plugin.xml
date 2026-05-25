@@ -32,17 +32,31 @@
     <!-- Extension points defined by the plugin.
          Read more: https://plugins.jetbrains.com/docs/intellij/plugin-extension-points.html -->
     <extensions defaultExtensionNs="com.intellij">
-        <fileType
-            name="Env file"
-            implementationClass="com.github.mucahitkayadan.envmasker.file.EnvFileType"
-            fieldName="INSTANCE"
-            extensions="env"/>
-            
         <editorFactoryListener 
             implementation="com.github.mucahitkayadan.envmasker.listener.EnvEditorListener"/>
+
+        <applicationService
+            serviceImplementation="com.github.mucahitkayadan.envmasker.settings.EnvMaskerSettings"/>
+
+        <applicationConfigurable
+            parentId="tools"
+            instance="com.github.mucahitkayadan.envmasker.settings.EnvMaskerConfigurable"
+            id="com.github.mucahitkayadan.envmasker.settings.EnvMaskerConfigurable"
+            displayName="Env File Masker"/>
     </extensions>
 
     <change-notes><![CDATA[
+        <h3>1.0.5</h3>
+        <ul>
+            <li><b>Added:</b>
+                <ul>
+                    <li>Setting to control masking of commented-out assignments (e.g. <code># API_KEY=secret</code>)</li>
+                    <li>Inline comment handling so values like <code>KEY=value # note</code> mask only the value</li>
+                    <li>Removed duplicate <code>.env</code> file type registration to avoid conflicts with JetBrains .env files plugin</li>
+                </ul>
+            </li>
+        </ul>
+
         <h3>1.0.4</h3>
         <ul>
             <li><b>Changed:</b>

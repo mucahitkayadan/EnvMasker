@@ -1,5 +1,7 @@
 package com.github.mucahitkayadan.envmasker.listener;
 
+import com.github.mucahitkayadan.envmasker.file.EnvFileUtils;
+import com.github.mucahitkayadan.envmasker.masking.EnvMaskerFoldingService;
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.editor.Document;
 import com.intellij.openapi.editor.Editor;
@@ -14,7 +16,6 @@ import com.intellij.openapi.fileEditor.FileEditorManagerListener;
 import com.intellij.openapi.fileEditor.TextEditor;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.vfs.VirtualFile;
-import com.github.mucahitkayadan.envmasker.file.EnvFileType;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Map;
@@ -30,8 +31,8 @@ public class EnvEditorListener implements EditorFactoryListener {
         Project project = editor.getProject();
         VirtualFile file = FileDocumentManager.getInstance().getFile(editor.getDocument());
 
-        if (file != null && file.getFileType() == EnvFileType.INSTANCE) {
-            maskContent(editor);
+        if (EnvFileUtils.isEnvFile(file)) {
+            EnvMaskerFoldingService.maskContent(editor);
             setupMouseListener(editor);
             registerDocumentListener(editor);
             
@@ -41,11 +42,11 @@ public class EnvEditorListener implements EditorFactoryListener {
                     new FileEditorManagerListener() {
                         @Override
                         public void fileOpened(@NotNull FileEditorManager source, @NotNull VirtualFile file) {
-                            if (file.getFileType() == EnvFileType.INSTANCE) {
+                            if (EnvFileUtils.isEnvFile(file)) {
                                 FileEditor[] editors = source.getEditors(file);
                                 for (FileEditor fileEditor : editors) {
                                     if (fileEditor instanceof TextEditor) {
-                                        maskContent(((TextEditor) fileEditor).getEditor());
+                                        EnvMaskerFoldingService.maskContent(((TextEditor) fileEditor).getEditor());
                                     }
                                 }
                             }
@@ -53,7 +54,7 @@ public class EnvEditorListener implements EditorFactoryListener {
 
                         @Override
                         public void fileClosed(@NotNull FileEditorManager source, @NotNull VirtualFile file) {
-                            if (file.getFileType() == EnvFileType.INSTANCE) {
+                            if (EnvFileUtils.isEnvFile(file)) {
                                 for (FileEditor fileEditor : source.getEditors(file)) {
                                     if (fileEditor instanceof TextEditor) {
                                         deregisterDocumentListener(((TextEditor) fileEditor).getEditor());
@@ -64,10 +65,10 @@ public class EnvEditorListener implements EditorFactoryListener {
 
                         @Override
                         public void selectionChanged(@NotNull FileEditorManagerEvent event) {
-                            if (event.getNewFile() != null && event.getNewFile().getFileType() == EnvFileType.INSTANCE) {
+                            if (EnvFileUtils.isEnvFile(event.getNewFile())) {
                                 FileEditor fileEditor = event.getNewEditor();
                                 if (fileEditor instanceof TextEditor) {
-                                    maskContent(((TextEditor) fileEditor).getEditor());
+                                    EnvMaskerFoldingService.maskContent(((TextEditor) fileEditor).getEditor());
                                 }
                             }
                         }
@@ -77,18 +78,17 @@ public class EnvEditorListener implements EditorFactoryListener {
         }
     }
 
-    // Registers document listener when editor is opened
     private void registerDocumentListener(Editor editor) {
         Document document = editor.getDocument();
 
         if (documentListeners.containsKey(document)) {
-            return; // Avoid adding duplicate listeners
+            return;
         }
 
         DocumentListener listener = new DocumentListener() {
             @Override
             public void documentChanged(@NotNull DocumentEvent event) {
-                maskContent(editor);
+                EnvMaskerFoldingService.maskContent(editor);
             }
         };
 
@@ -96,7 +96,6 @@ public class EnvEditorListener implements EditorFactoryListener {
         documentListeners.put(document, listener);
     }
 
-    // De-registers document listener when file is closed
     private void deregisterDocumentListener(Editor editor) {
         Document document = editor.getDocument();
         DocumentListener listener = documentListeners.remove(document);
@@ -106,50 +105,6 @@ public class EnvEditorListener implements EditorFactoryListener {
         }
     }
 
-    private void safeWriteAction(Editor editor, Runnable action) {
-        ApplicationManager.getApplication().invokeLater(() -> {
-            if (editor.isDisposed()) return;
-
-            ApplicationManager.getApplication().runWriteAction(() -> {
-                if (editor.isDisposed()) return; // Final check to avoid potential race condition
-                action.run();
-            });
-        });
-    }
-
-    private void maskContent(Editor editor) {
-        safeWriteAction(editor, () -> {
-            FoldingModelEx foldingModel = (FoldingModelEx) editor.getFoldingModel();
-            foldingModel.runBatchFoldingOperation(() -> {
-                // Clear existing regions within the batch operation
-                foldingModel.clearFoldRegions();
-                // Apply new folding within the same batch operation
-                String text = editor.getDocument().getText();
-                String[] lines = text.split("\n");
-                int offset = 0;
-
-                for (String line : lines) {
-                    int equalIndex = line.indexOf('=');
-                    if (equalIndex != -1) {
-                        int valueStart = offset + equalIndex + 1;
-                        int valueEnd = offset + line.length();
-                        if (valueEnd > valueStart) {
-                            String value = line.substring(equalIndex + 1).trim();
-                            if (!value.isEmpty()) {
-                                FoldRegion region = foldingModel.addFoldRegion(valueStart, valueEnd, "********");
-                                if (region != null) {
-                                    region.setExpanded(false);
-                                }
-                            }
-                        }
-                    }
-                    offset += line.length() + 1; // +1 for newline
-                }
-            });
-        });
-    }
-
-
     private void setupMouseListener(Editor editor) {
         editor.addEditorMouseListener(new EditorMouseListener() {
             @Override
@@ -158,16 +113,16 @@ public class EnvEditorListener implements EditorFactoryListener {
                     int offset = e.getOffset();
                     FoldingModelEx foldingModel = (FoldingModelEx) editor.getFoldingModel();
                     
-                    // Try to find any region at the click position
                     FoldRegion targetRegion = null;
                     for (FoldRegion region : foldingModel.getAllFoldRegions()) {
-                        if (offset >= region.getStartOffset() && offset <= region.getEndOffset()) {
+                        if (EnvMaskerFoldingService.isMaskRegion(region)
+                            && offset >= region.getStartOffset()
+                            && offset <= region.getEndOffset()) {
                             targetRegion = region;
                             break;
                         }
                     }
 
-                    // Toggle the found region
                     if (targetRegion != null) {
                         final FoldRegion region = targetRegion;
                         foldingModel.runBatchFoldingOperation(() -> 

@@ -4,7 +4,7 @@ plugins {
 }
 
 group = "com.github.mucahitkayadan"
-version = "1.0.4"
+version = "1.0.5"
 
 repositories {
     mavenCentral()
@@ -18,9 +18,13 @@ dependencies {
         // Set the IntelliJ Platform version
         intellijIdeaCommunity("2023.2.6")
     }
+    testImplementation("org.junit.jupiter:junit-jupiter:5.10.2")
 }
 
 intellijPlatform {
+    buildSearchableOptions.set(false)
+    instrumentCode.set(false)
+
     // Plugin configuration
     pluginConfiguration {
         id.set("com.github.mucahitkayadan.envmasker")
@@ -47,13 +51,13 @@ intellijPlatform {
         """.trimIndent())
         
         changeNotes.set("""
-            <h3>1.0.4</h3>
+            <h3>1.0.5</h3>
             <ul>
-                <li><b>Changed:</b>
+                <li><b>Added:</b>
                     <ul>
-                        <li>Extended compatibility to support IntelliJ 2025.1 (build 251) and future versions</li>
-                        <li>Migrated to IntelliJ Platform Gradle Plugin 2.5.0</li>
-                        <li>Enhanced build system for better compatibility</li>
+                        <li>Setting to control masking of commented-out assignments (e.g. <code># API_KEY=secret</code>)</li>
+                        <li>Inline comment handling so values like <code>KEY=value # note</code> mask only the value</li>
+                        <li>Removed duplicate <code>.env</code> file type registration to avoid conflicts with JetBrains .env files plugin</li>
                     </ul>
                 </li>
             </ul>
@@ -62,6 +66,10 @@ intellijPlatform {
 }
 
 tasks {
+    test {
+        useJUnitPlatform()
+    }
+
     withType<JavaCompile> {
         sourceCompatibility = "17"
         targetCompatibility = "17"
